@@ -4,8 +4,7 @@
 #include <nlohmann/json.hpp>
 #include <stdexcept>
 
-ConfigReader::ConfigReader(std::string configPath)
-    : _configPath(std::move(configPath)) {}
+ConfigReader::ConfigReader(std::string configPath) : _configPath(std::move(configPath)) {}
 
 Config ConfigReader::ReadConfig() const {
     std::ifstream file(_configPath);

@@ -5,9 +5,7 @@
 
 #include "imgui.h"
 
-Window::Window(const Config& config,
-    std::vector<std::unique_ptr<RenderableObject>> objects,
-    std::vector<std::string> logoNames) {
+Window::Window(const Config& config, std::vector<std::unique_ptr<RenderableObject>> objects, std::vector<std::string> logoNames) {
 
     _objects = std::move(objects);
     _logoNames = std::move(logoNames);
@@ -15,8 +13,7 @@ Window::Window(const Config& config,
     _window.create(sf::VideoMode({config.windowWidth, config.windowHeight}), config.windowTitle);
 
     auto desktop = sf::VideoMode::getDesktopMode();
-    _window.setPosition({static_cast<int>(desktop.size.x / 2 - config.windowWidth / 2),
-        static_cast<int>(desktop.size.y / 2 - config.windowHeight / 2)});
+    _window.setPosition({static_cast<int>(desktop.size.x / 2 - config.windowWidth / 2), static_cast<int>(desktop.size.y / 2 - config.windowHeight / 2)});
 
     _window.setFramerateLimit(60);
     _window.setVerticalSyncEnabled(true);

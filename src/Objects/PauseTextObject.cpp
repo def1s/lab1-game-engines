@@ -2,8 +2,7 @@
 
 #include "../AppState/AppState.h"
 
-PauseTextObject::PauseTextObject(const std::filesystem::path& fontPath)
-    : _text(_font, "Pause", 56) {
+PauseTextObject::PauseTextObject(const std::filesystem::path& fontPath) : _text(_font, "Pause", 56) {
     bool loaded = _font.openFromFile(fontPath);
     if (!loaded) {
         loaded = _font.openFromFile(std::filesystem::path("..") / fontPath);
