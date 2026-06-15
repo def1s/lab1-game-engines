@@ -15,12 +15,5 @@ if (ENABLE_CLANG_TIDY)
     endif ()
 endif ()
 
-file(COPY
-    fonts/futura.ttf
-    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/fonts)
-#file(COPY
-#    config.json
-#    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
 add_subdirectory(dependencies)
 add_subdirectory(src)

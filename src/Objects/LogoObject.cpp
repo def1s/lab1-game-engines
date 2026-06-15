@@ -58,6 +58,8 @@ void LogoObject::ResetPosition(const sf::Vector2u& windowSize) {
 }
 
 void LogoObject::Update(const RenderContext& context) {
+    _visible = !context.state.paused;
+
     if (_hasAnyTexture) {
         ApplySelectedTexture(context.state.selectedLogoIndex);
     }
@@ -115,6 +117,10 @@ void LogoObject::Update(const RenderContext& context) {
 }
 
 void LogoObject::Draw(sf::RenderTarget& target) {
+    if (!_visible) {
+        return;
+    }
+
     if (_hasAnyTexture) {
         target.draw(*_sprite);
     } else {

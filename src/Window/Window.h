@@ -30,9 +30,10 @@ class Window {
     void Render();
 
   public:
-    Window(const Config& config, std::vector<std::unique_ptr<RenderableObject>> objects, std::vector<std::string> logoNames);
+    Window(const Config& config, std::vector<std::string> logoNames);
     ~Window();
 
+    void AddObject(std::unique_ptr<RenderableObject> object);
     void Run();
 };
 

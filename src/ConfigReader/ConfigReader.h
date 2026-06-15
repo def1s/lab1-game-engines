@@ -14,10 +14,10 @@ struct Config {
 
     float xLogoSpeed = 180.0f;
     float yLogoSpeed = 180.0f;
-    float sizeMultiplier = 1.0f;
+    float sizeMultiplier = 0.35f;
     float logoColor[3] = {1.0f, 1.0f, 1.0f};
 
-    std::string pauseText = "Pause";
+    std::string pauseText = "Пауза";
 };
 
 class ConfigReader {

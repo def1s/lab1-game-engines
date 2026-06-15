@@ -7,12 +7,11 @@ struct AppState {
     int selectedLogoIndex = 0;
     float speedX = 180.0f;
     float speedY = 180.0f;
-    float sizeMultiplier = 1.0f;
+    float sizeMultiplier = 0.35f;
     float logoColor[3] = {1.0f, 1.0f, 1.0f};
 
     bool paused = false;
-    // TODO: все же лучше заюзать строку
-    char pauseText[255] = "Pause";
+    char pauseText[255] = "Пауза";
 
     bool resetRequested = false;
 

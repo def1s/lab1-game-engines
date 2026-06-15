@@ -1,15 +1,11 @@
 #include "Window.h"
 
-#include <algorithm>
 #include <cstring>
+#include <stdexcept>
 
 #include "imgui.h"
 
-Window::Window(const Config& config, std::vector<std::unique_ptr<RenderableObject>> objects, std::vector<std::string> logoNames) {
-
-    _objects = std::move(objects);
-    _logoNames = std::move(logoNames);
-
+Window::Window(const Config& config, std::vector<std::string> logoNames) : _logoNames(std::move(logoNames)) {
     _window.create(sf::VideoMode({config.windowWidth, config.windowHeight}), config.windowTitle);
 
     auto desktop = sf::VideoMode::getDesktopMode();
@@ -17,7 +13,9 @@ Window::Window(const Config& config, std::vector<std::unique_ptr<RenderableObjec
 
     _window.setFramerateLimit(60);
     _window.setVerticalSyncEnabled(true);
-    ImGui::SFML::Init(_window);
+    if (!ImGui::SFML::Init(_window)) {
+        throw std::runtime_error("Failed to initialize ImGui-SFML");
+    }
 
     _state.speedX = config.xLogoSpeed;
     _state.speedY = config.yLogoSpeed;
@@ -27,7 +25,6 @@ Window::Window(const Config& config, std::vector<std::unique_ptr<RenderableObjec
     _state.logoColor[1] = config.logoColor[1];
     _state.logoColor[2] = config.logoColor[2];
 
-    // TODO: че это такое?
     std::strncpy(_state.pauseText, config.pauseText.c_str(), sizeof(_state.pauseText) - 1);
     _state.pauseText[sizeof(_state.pauseText) - 1] = '\0';
 }
@@ -36,11 +33,14 @@ Window::~Window() {
     ImGui::SFML::Shutdown();
 }
 
+void Window::AddObject(std::unique_ptr<RenderableObject> object) {
+    _objects.push_back(std::move(object));
+}
+
 void Window::Run() {
     while (_isRun && _window.isOpen()) {
         const float dtSeconds = _deltaClock.restart().asSeconds();
 
-        // TODO: а это че такое (про секунды)?
         ImGui::SFML::Update(_window, sf::seconds(dtSeconds));
         UpdateUserInput();
         _ui.Draw(_state, _logoNames);

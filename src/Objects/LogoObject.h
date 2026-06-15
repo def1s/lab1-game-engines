@@ -24,6 +24,7 @@ class LogoObject : public RenderableObject {
     sf::Vector2f _position = {100.0f, 100.0f};
 
     bool _hasAnyTexture = false;
+    bool _visible = true;
     int _activeIndex = 0;
 
     void ApplySelectedTexture(int selectedIndex);

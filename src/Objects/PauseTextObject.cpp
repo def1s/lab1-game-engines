@@ -1,5 +1,7 @@
 #include "PauseTextObject.h"
 
+#include <string_view>
+
 #include "../AppState/AppState.h"
 
 PauseTextObject::PauseTextObject(const std::filesystem::path& fontPath) : _text(_font, "Pause", 56) {
@@ -15,11 +17,12 @@ PauseTextObject::PauseTextObject(const std::filesystem::path& fontPath) : _text(
 
 void PauseTextObject::Update(const RenderContext& context) {
     _visible = context.state.paused;
-    _text.setString(context.state.pauseText);
+    const std::string_view pauseText(context.state.pauseText);
+    _text.setString(sf::String::fromUtf8(pauseText.begin(), pauseText.end()));
 
-    const auto bounds = _text.getGlobalBounds();
-    const float x = (static_cast<float>(context.windowSize.x) - bounds.size.x) * 0.5f;
-    const float y = (static_cast<float>(context.windowSize.y) - bounds.size.y) * 0.5f;
+    const auto bounds = _text.getLocalBounds();
+    const float x = (static_cast<float>(context.windowSize.x) - bounds.size.x) * 0.5f - bounds.position.x;
+    const float y = (static_cast<float>(context.windowSize.y) - bounds.size.y) * 0.5f - bounds.position.y;
     _text.setPosition({x, y});
 }
 

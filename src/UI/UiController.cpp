@@ -1,5 +1,7 @@
 #include "UiController.h"
 
+#include <filesystem>
+
 #include "imgui.h"
 
 void UiController::Draw(AppState& state, const std::vector<std::string>& logoNames) {
@@ -13,11 +15,12 @@ void UiController::Draw(AppState& state, const std::vector<std::string>& logoNam
             state.selectedLogoIndex = static_cast<int>(logoNames.size()) - 1;
         }
 
-        const char* current = logoNames[state.selectedLogoIndex].c_str();
-        if (ImGui::BeginCombo("Logo", current)) {
+        const std::string currentName = std::filesystem::path(logoNames[state.selectedLogoIndex]).stem().string();
+        if (ImGui::BeginCombo("Logo", currentName.c_str())) {
             for (int i = 0; i < static_cast<int>(logoNames.size()); ++i) {
                 const bool isSelected = i == state.selectedLogoIndex;
-                if (ImGui::Selectable(logoNames[i].c_str(), isSelected)) {
+                const std::string logoName = std::filesystem::path(logoNames[i]).stem().string();
+                if (ImGui::Selectable(logoName.c_str(), isSelected)) {
                     state.selectedLogoIndex = i;
                 }
                 if (isSelected) {

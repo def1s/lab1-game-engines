@@ -2,17 +2,19 @@
   "windowWidth": 1280,
   "windowHeight": 720,
   "windowTitle": "Lab1",
-  "fontsPath": "../fonts/futura.ttf",
+  "fontsPath": "fonts/futura.ttf",
   "logoPaths": [
-    "../../images/kuplinov.jpeg"
+    "images/DVDLogo.png",
+    "images/BluRayLogo.png",
+    "images/CDLogo.png"
   ],
   "xLogoSpeed": 180.0,
   "yLogoSpeed": 180.0,
-  "sizeMultiplier": 1.0,
+  "sizeMultiplier": 0.35,
   "logoColor": [
     1.0,
     1.0,
     1.0
   ],
-  "pauseText": "Pause"
+  "pauseText": "Пауза"
 }
